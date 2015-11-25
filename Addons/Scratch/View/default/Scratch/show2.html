@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title><php>echo empty($page_title) ? C('WEB_SITE_TITLE') : $page_title;</php></title>
+	<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+    <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+    <meta content="no-cache" http-equiv="pragma">
+    <meta content="0" http-equiv="expires">
+    <meta content="telephone=no, address=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="shortcut icon" href="{:SITE_URL}/favicon.ico">
+    
+	<link href="{:ADDON_PUBLIC_PATH}/css/style.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+</head>
+<body style="overflow: hidden;">
+	<div id="loading" style="position: relative; z-index: 999999; width: 100%; height: 100%;">
+		<br><br><br><br>
+		<div class="spinner">
+		   <div class="rect1"></div>
+		   <div class="rect2"></div>
+		   <div class="rect3"></div>
+		   <div class="rect4"></div>
+		   <div class="rect5"></div>
+		</div>
+	</div>
+	<div id="bg" class="bg" style="visibility: hidden;">
+		<div class="container">
+			<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/BG.png" style="position: fixed; width: 100%;" />
+		</div>
+	</div>
+	<div id="nav" class="nav nav-fixed" style="visibility: hidden;">
+		<div class="container" style="position: relative;">
+			<div class="nav-table">
+				<div class="nav-td">
+					<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/IconLottery.png" style="width: 20.833333%;" />
+					<div class="title" style="color: #F6B326;"><span>抽</span>奖</div>
+				</div>
+				<div class="nav-td">
+					<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/IconInfo.png" style="width: 20.833333%;" />
+					<div class="title" style="color: #F4CAB6;"><span>信</span>息</div>
+				</div>
+				<div class="nav-td">
+					<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/IconAbout.png" style="width: 20.833333%;" />
+					<div class="title" style="color: #F4CAB6;"><span>关</span>于</div>
+				</div>
+			</div>
+			<div style="position: absolute; width: 20px; height: 200%; left: -20px; top: 0; background-color: #FFF;"></div>
+			<div style="position: absolute; width: 20px; height: 200%; right: -20px; top: 0; background-color: #FFF;"></div>
+		</div>
+	</div>
+	<div id="main" class="main" style="visibility: hidden;">
+		<div class="container">
+			<div id="main-top"></div>
+			<div id="lottery" class="content">
+				<div style="position: relative; z-index: 1000;">
+					<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/EnterBG.png" style="position: absolute; width: 78.333333%; left: 10.833333%; top: 20%;" />
+					<img class="preload animate-word1" src="{:ADDON_PUBLIC_PATH}/imgs/Word1.png" style="position: absolute; width: 26.388889%; left: 35.9%; top: 47.5%;" />
+					<img class="preload animate-word2" src="{:ADDON_PUBLIC_PATH}/imgs/Word2.png" style="position: absolute; width: 26.388889%; left: 35.9%; top: 47.5%;" />
+					<img class="preload gravity-sensor" src="{:ADDON_PUBLIC_PATH}/imgs/Gift.png" style="position: absolute; width: 31.527778%; left: 2.5%; top: 54.1%;" />
+					<img class="preload gravity-sensor" src="{:ADDON_PUBLIC_PATH}/imgs/FirstPrize.png" style="position: absolute; width: 34.722222%; left: 30.6%; top: 6.8%;" />
+					<img class="preload gravity-sensor" src="{:ADDON_PUBLIC_PATH}/imgs/SecondPrize.png" style="position: absolute; width: 34.722222%; left: 63.7%; top: 20.3%;" />
+					<img class="preload gravity-sensor" src="{:ADDON_PUBLIC_PATH}/imgs/ThirdPrize.png" style="position: absolute; width: 34.722222%; left: 63.7%; top: 60.3%;" />
+				</div>
+				<div class="animate" style="position: relative; z-index: 900; overflow: hidden;">
+					<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/rape.png" style="position: absolute; width: 0.555556%; left: 45.6%; top: 4%;" />
+					<img class="preload up" src="{:ADDON_PUBLIC_PATH}/imgs/WhaleBig.png" style="position: absolute; width: 92.638889%; left: 3.7%; top: 22.5%;" />
+					<div class="expand delay0_5" style="position: absolute; width: 72.222222%; left: 18.4%; top: 27.8%;">
+						<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/BubbleBG.png" style="position: relative; width: 100%; left: 0; top: 0;" />
+						<div id="scratch" style="position: absolute; left: 11%; top: 41.5%; -webkit-transform-origin: left top;">
+							<php> if ($error) { </php>
+								<div class="prize_text" style="position: absolute; width: 405px; height: 82px; line-height: 82px; font-size: 32px;">{$error}</div>
+								<canvas style="display:none" />
+							<php> } else { </php>
+								<!-- 抽奖信息 -->
+								<div class="prize_text" style="display:none; position: absolute; width: 405px; height: 82px; line-height: 82px; font-size: 32px;">{$prize.title}</div>
+								<img id="areaImg" class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/Area.png" style="position: absolute; width: 405px; height: 82px;" />
+								<canvas width="405" height="82" style="position: relative;"></canvas>
+							<php> } </php>
+						</div>
+					</div>
+					<img class="preload expand delay1 gravity-sensor" src="{:ADDON_PUBLIC_PATH}/imgs/WhaleLittle.png" style="position: absolute; width: 22.083333%; left: 72%; top: 76.8%;" />
+					<img class="preload float delay1_5" src="{:ADDON_PUBLIC_PATH}/imgs/Bubble.png" style="position: absolute; width: 4.388889%; left: 51.4%; top: 32.2%;" />
+					<img class="preload float delay2" src="{:ADDON_PUBLIC_PATH}/imgs/Bubble.png" style="position: absolute; width: 6.144444%; left: 14.6%; top: 76.3%;" />
+					<img class="preload float delay2_5" src="{:ADDON_PUBLIC_PATH}/imgs/Bubble.png" style="position: absolute; width: 10.972222%; left: 53.1%; top: 87.2%;" />
+				</div>
+				<div class="animate" style="position: relative; z-index: 800; overflow: hidden;">
+					<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/rape.png" style="position: absolute; width: 0.555556%; left: 71.4%; top: -19.1%;" />
+					<div class="up" style="position: absolute; width: 100%; left: 0; top: 0;">
+						<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/AddBG.png" style="position: static; width: 84.166667%;" />
+						<div class="word" style="position: absolute; width: 70px; left: 55.6%; top: 27.4%; color: #FB3814; font-size: 56px; line-height: 36px; text-align: center;">{$prize.count|default=0}</div>
+						<div class="word" style="position: absolute; width: 396px; left: 28.5%; top: 56.4%;color: #BE5B17; font-size: 32px; line-height: 42px; text-align: left;">★首次分享到朋友圈即可获得2次刮奖机会<br>★每召唤五个小伙伴扫描二维码即可获得1次刮奖机会</div>
+					</div>
+				</div>
+				<div class="animate" style="position: relative; z-index: 700; overflow: hidden;">
+					<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/rape.png" style="position: absolute; width: 0.555556%; left: 16.8%; top: -2.1%;" />
+					<img class="preload up" src="{:ADDON_PUBLIC_PATH}/imgs/Moon.png" style="position: absolute; width: 17.777778%; left: 10.6%; top: 26.4%;" />
+					<img class="preload gravity-sensor" src="{:ADDON_PUBLIC_PATH}/imgs/Star.png" style="position: absolute; width: 3.2%; left: 8%; top: 23%;" />
+					<img class="preload gravity-sensor" src="{:ADDON_PUBLIC_PATH}/imgs/Star.png" style="position: absolute; width: 4%; left: 30%; top: 40%;" />
+					<img class="preload gravity-sensor" src="{:ADDON_PUBLIC_PATH}/imgs/Star.png" style="position: absolute; width: 6.111111%; left: 32.6%; top: 26.4%;" />
+					<img class="preload gravity-sensor" src="{:ADDON_PUBLIC_PATH}/imgs/Phone.png" style="position: absolute; width: 22.361111%; left: 9.5%; top: 59.2%;" />
+					<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/QRCode.png" style="position: absolute; width: 73.611111%; left: 34.2%; top: 0;" />
+					<img style="width: 42.9%; left: 41%; top: 40%; -webkit-transform: rotateZ(15.5deg);" src='https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket={$ticket}'>
+					<img style="width: 42.9%; left: 41%; top: 40%; -webkit-transform: rotateZ(15.5deg);" src='{:ADDON_PUBLIC_PATH}/imgs/QRCodeClover.png'>
+				</div>
+				<div class="animate" style="position: relative; z-index: 600; overflow: hidden;">
+					<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/rape.png" style="position: absolute; width: 0.555556%; left: 49.8%; top: -3.8%;" />
+					<img class="preload gravity-sensor" src="{:ADDON_PUBLIC_PATH}/imgs/Cloud2.png" style="position: absolute; width: 12.361111%; left: 6.8%; top: 52%;" />
+					<div class="up" style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;">
+						<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/Bird.png" style=" width: 97.777778%; left: 2.3%; top: 13.8%;" />
+						<div class="word" style="position: absolute; width: 72px; left: 49.2%; top: 49.4%; color: #FB3814; font-size: 56px; line-height: 36px; text-align: center;">1</div>
+						<div class="word" style="position: absolute; width: 72px; left: 49.2%; top: 61.6%; color: #FB3814; font-size: 56px; line-height: 36px; text-align: center;">0</div>
+						<div class="word" style="position: absolute; width: 72px; left: 49.2%; top: 73.4%; color: #FB3814; font-size: 56px; line-height: 36px; text-align: center;">0</div>
+					</div>
+					<img class="preload gravity-sensor" src="{:ADDON_PUBLIC_PATH}/imgs/Cloud1.png" style="position: absolute; width: 17.361111%; left: 76.8%; top: 76.2%;" />
+					<img class="preload animate-cloud3" src="{:ADDON_PUBLIC_PATH}/imgs/Cloud3.png" style="position: absolute; width: 22.777778%; left: -22.777778%; top: 63%;" />
+				</div>
+				<div style="position: relative; z-index: 500; overflow: hidden;">
+					<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/AwardDisplay.png" style="position: absolute; width: 17.777778%; left: 10.6%; top: 13.4%;" />
+					<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/Award1.png" style="position: absolute; width: 58.333333%; left: 33.9%; top: -0.7%;" />
+					<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/Award3.png" style="position: absolute; width: 40.128889%; left: 56.7%; top: 54.3%;" />
+					<img class="preload gravity-sensor" src="{:ADDON_PUBLIC_PATH}/imgs/ChristmasHat.png" style="position: absolute; width: 18.75%; left: 22.2%; top: 8.2%;" />
+					<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/Award2.png" style="position: absolute; width: 37.638889%; left: 30.8%; top: 40.4%;" />
+				</div>
+				<div style="position: relative; z-index: 400; overflow: hidden;">
+					<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/Grace.png" style="position: absolute; width: 100%; left: 0; top: 43%;" />
+					<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/LastAward.png" style="position: absolute; width: 86.666667%; left: 5.5%; top: 0;" />
+					<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/Grass1.png" style="position: absolute; width: 29.166667%; left: 18%; top: 61.4%;" />
+					<img class="preload animate-flower" src="{:ADDON_PUBLIC_PATH}/imgs/Flower.png" style="position: absolute; width: 13.75%; left: 10.3%; top: 52.5%;" />
+					<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/Grass2.png" style="position: absolute; width: 20.833333%; left: 10.3%; top: 65.3%;" />
+					<img class="preload" src="{:ADDON_PUBLIC_PATH}/imgs/Tortoise.png" style="position: absolute; width: 52.083333%; left: 43.3%; top: 33.8%;" />
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		var imgs = document.getElementsByTagName('img');
+		var imgsLength = imgs.length;
+		var count = imgsLength;
+		for(var i = 0; i < imgsLength; ++i) {
+			var img = imgs[i];
+			if(!img.complete){
+				img.addEventListener('load',function(){
+					--count;
+				});
+			} else {
+				--count;
+			}
+			/*
+			imgs[i].onload = function() {
+				--count;
+			}
+			imgs[i].onreadystatechange=function(){
+				if(this.readyState=="complete"){
+					--count;
+				}
+			}
+			*/
+		}
+	
+		document.write(unescape("%3Cscript src='__STATIC__/jquery-2.0.3.min.js' type='text/javascript'%3E%3C/script%3E"));
+		
+		var prize_id = {$prize.id|intval};
+		var prize_count = {$prize.count|intval};
+		var prize_title = '{$prize.title}';
+		var prize_name = '{$prize.name}';
+		var data_id = '{$data.id}';
+		var set_sn_code_url = "{:addons_url('Scratch://Scratch/set_sn_code')}";
+		document.write(unescape("%3Cscript src='{:ADDON_PUBLIC_PATH}/js/show.js' type='text/javascript'%3E%3C/script%3E"));
+		
+		
+        var url = "{:addons_url('Scratch://Scratch/shareTimeline')}";
+		var openid  = "{$ScratchMember.openid}";
+        var token = "{$ScratchMember.token}";
+        var target_id = "{$ScratchMember.target_id}";
+        var urlreturn = "{$urlreturn}";
+		document.write(unescape("%3Cscript src='{:ADDON_PUBLIC_PATH}/js/weixin.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+</body>
+</html>

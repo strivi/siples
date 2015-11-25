@@ -1,0 +1,14 @@
+body{font-family: "微软雅黑",Tahoma,Arial,STHeiti,sans-serif;	background: rgb(137,65,166);
+}
+.jumbotron{
+    position:relative;
+    padding:40px 0;
+    color:#fff;
+	background: rgb(137,65,166);
+}         	
+.shadow {
+	border: #efe5e5
+	-moz-box-shadow: 0px 0px 10px #fff;
+	-webkit-box-shadow: 0px 0px 10px #fff;
+	box-shadow: 0px 0px 10px #fff;
+}

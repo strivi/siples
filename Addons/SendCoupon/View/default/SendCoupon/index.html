@@ -1,0 +1,30 @@
+<extend name="Addons://SendCoupon@Base/common"/>
+
+<block name="body">
+<div class="">
+	<form role="form" id="getCoupon_form" action="{:addons_url('SendCoupon://SendCoupon/SendCoupon')}" method="post" onsubmit="return false;">
+		<button id="getCoupon" type="submit" class="btn btn-danger" style="position:absolute;top:50%;margin-top:-20px;left:20px;right:20px;">领取代金券</a>
+		<input type="hidden" name="id" id="id" value="{$coupon.id}" /><!--到店日期-->
+	</form>
+</div>
+</block>
+
+<block name="script">
+	<script>
+		$(function() {
+			$('#getCoupon').on('click', function() {
+				var url = $('#getCoupon_form').attr('action');
+				var id = $('#id').val();		
+				$.post(url, {'id': id}, function(data) {
+					if(data.status) {
+						alert(data.info);												
+						window.location.href=data.url;
+					}else{
+						alert(data.info);
+						$("#getCoupon").attr({"disabled":"disabled"});
+					}
+				}, 'json');
+			});
+		});
+	</script>
+</block>

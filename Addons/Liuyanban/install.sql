@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS `wp_lyb_message` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+`openid`  varchar(255) NOT NULL  COMMENT '用户openid',
+`ctime`  int(10) NOT NULL  COMMENT '留言时间',
+`content`  text NOT NULL  COMMENT '留言内容',
+`username`  varchar(255) NOT NULL  COMMENT '用户名',
+`token`  varchar(255) NOT NULL  COMMENT '公众号原始ID',
+`reply`  text NOT NULL  COMMENT '管理员回复',
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+INSERT INTO `wp_model` (`name`,`title`,`extend`,`relation`,`need_pk`,`field_sort`,`field_group`,`attribute_list`,`template_list`,`template_add`,`template_edit`,`list_grid`,`list_row`,`search_key`,`search_list`,`create_time`,`update_time`,`status`,`engine_type`) VALUES ('lyb_message','留言内容表','0','','1','{"1":["ctime","content","username"]}','1:基础','','','','','username:用户名\r\ncontent:留言内容\r\nctime|time_format:留言时间\r\nid:操作:[EDIT]&id=[id]|编辑,[DELETE]&id=[id]|删除','10','content','','1416814149','1416840358','1','MyISAM');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('openid','用户openid','varchar(255) NOT NULL','string','','','0','','0','0','1','1416838944','1416814597','','3','','regex','get_openid','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('ctime','留言时间','int(10) NOT NULL','datetime','','','0','','0','0','1','1418123935','1416814316','','3','','regex','time','1','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('content','留言内容','text NOT NULL','textarea','','','1','','0','0','1','1416814255','1416814255','','3','','regex','','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('username','用户名','varchar(255) NOT NULL','string','','','1','','0','0','1','1416814229','1416814229','','3','','regex','','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('token','公众号原始ID','varchar(255) NOT NULL','string','','','0','','0','0','1','1416814195','1416814195','','3','','regex','get_token','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('reply','管理员回复','text NOT NULL','textarea','','','1','','0','0','1','1418123861','1418123861','','3','','regex','','3','function');
+UPDATE `wp_attribute` SET model_id= (SELECT MAX(id) FROM `wp_model`) WHERE model_id=0;

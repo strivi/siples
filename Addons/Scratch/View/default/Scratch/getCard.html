@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+</head>
+<body>
+	<div>
+		<button id="batchAddCard" style="visibility:hidden;">AAA</button>
+	</div>
+	
+</body>
+<script type="text/javascript">
+        // 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
+        var readyFunc = function onBridgeReady() {
+			document.querySelector('#batchAddCard').addEventListener('click', function(e) {
+				var timestamp = '{$timestamp}';
+				WeixinJSBridge.invoke('batchAddCard',{ 
+					"card_list":[{	
+									"card_id":"{$card_id}", 
+									"card_ext":'{\"code\":\"\",\"openid\":\"\",\"timestamp\":\"'+timestamp+'\",\"signature\":\"'+'<?php echo($signa) ?>'+'\"}'
+								},]
+					},function(res) {
+						alert(JSON.stringify(res));
+						history.back(-1);
+					});
+				});
+			document.querySelector('#batchAddCard').click();			
+		}//readyFunc
+			
+		if (typeof WeixinJSBridge === "undefined") { 
+			document.addEventListener('WeixinJSBridgeReady', readyFunc, false);
+		}else{ 
+			readyFunc(); 
+		}
+
+</script>
+</html>

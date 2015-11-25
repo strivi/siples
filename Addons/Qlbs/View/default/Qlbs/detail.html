@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>诺言法式旅馆</title>
+
+    <!-- Bootstrap -->
+    <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="http://apps.bdimg.com/libs/html5shiv/r29/html5.min.js"></script>
+      <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+    #daohang {
+	-webkit-animation:2s ease infinite normal;
+ 	-webkit-animation-name: mark;
+ 	-webkit-transform-origin: center bottom;
+ 	
+	animation:2s ease infinite normal;
+ 	animation-name: mark;
+ 	transform-origin: center bottom;
+	}
+	
+	@-webkit-keyframes mark{
+	    0%{	-webkit-transform:rotateZ(0deg);}
+	    10%{	-webkit-transform:rotateZ(10deg);}
+	    30%{	-webkit-transform:rotateZ(-10deg);}
+	    40%{	-webkit-transform:rotateZ(0deg);}
+	    100%{	-webkit-transform:rotateZ(0deg);}
+	}
+	
+	@keyframes mark{
+	    0%{	transform:rotateZ(0deg);}
+	    10%{	transform:rotateZ(10deg);}
+	    30%{	transform:rotateZ(-10deg);}
+	    40%{	transform:rotateZ(0deg);}
+	    100%{	transform:rotateZ(0deg);}
+	}
+    </style>
+  </head>
+  <body>
+  
+			
+	  <div class="list-group">
+				 <a href="#" class="list-group-item active" style="border-radius:0;">{$info['title']}</a>
+				  <li class="list-group-item list-group-item-success">
+				  	<span class="glyphicon glyphicon-road" aria-hidden="true">  距我{$info['distance']}米</span>
+				  </li>
+				  <li class="list-group-item list-group-item-success">
+					 <span class="glyphicon glyphicon-earphone" aria-hidden="true"> <a href="tel:{$info['tel']}">{$info['tel']}</a></span>				  
+				  </li>
+				  <li class="list-group-item list-group-item-success">
+				  	<span class="glyphicon glyphicon-home" aria-hidden="true"> {$info['address']}</span>
+				  </li>
+		</div>
+    
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-3"></div>
+			<div class="col-xs-6" style="text-align:center;">
+				<a href="http://api.map.baidu.com/marker?location={$info['latitude']},{$info['longitude']}&title=诺言法式旅馆&name=OnesWord&content=OnesWord&output=html">
+					<img id="daohang" width="100px;" src="{:ADDON_PUBLIC_PATH}/imgs/GPS.png">
+				</a>
+			</div>
+			</div>
+			<div class="col-xs-3"></div>
+			</div>
+		</div>
+	</div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="__STATIC__/jquery-1.10.2.min.js"><\/script>')</script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  </body>
+</html>
+
+<!DOCTYPE html>
+<!--
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>诺言法式旅馆-地图导航</title>
+
+     <style type="text/css">
+    table{width:100%;}
+    td {padding-right: 10px;border-bottom: 1px solid #ccc;padding-top: 8px;}
+    h3 {font-size: 20px;}
+    h4 {font-size:20px;margin-bottom: 5px;padding-bottom:10px; }
+    .tdleft{
+    	width:30%;font-size: 18px;
+    }
+	.title{
+		text-align:center;
+		color:#fff;
+		background-color:rgb(137,65,166);
+		width:300px; 
+	    border: 5px solid #dedede;
+	    -moz-border-radius: 15px;      /* Gecko browsers */
+	    -webkit-border-radius: 15px;   /* Webkit browsers */
+	    border-radius:15px;            /* W3C syntax */
+	}
+	.img_daohang{width:100%;box-shadow: 5px 5px 10px rgb(137,65,166);}
+  </style>
+  </head>
+  <body>
+
+<div align='center'>
+  <div class="title">
+  	<h3 style="padding-top:10px;">{$info['title']}</h3>
+  </div>
+</div>
+<br>
+<div style="padding: 0 20px;line-height:36px;">
+	<span>距我 {$info['distance']} 米</span><br>
+	<span>{$info['address']}</span><br>
+<span></span><b style="font-size:32px;color:red;"><a href="tel:{$info['tel']}">{$info['tel']}</a></b><br><br>
+	<a href="http://api.map.baidu.com/marker?location={$info['latitude']},{$info['longitude']}&title=诺言法式旅馆&name=OnesWord&content=OnesWord&output=html">
+		<img class="img_daohang" src="{:ADDON_PUBLIC_PATH}/mapshow.png" />
+	</a>
+</div>
+  </body>
+</html>
+-->
+

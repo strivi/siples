@@ -1,0 +1,87 @@
+<script language="javascript">
+			function callpay(){
+				WeixinJSBridge.invoke("getBrandWCPayRequest",{$jsApiParameters},function(res){	
+					WeixinJSBridge.log(res.err_msg);
+					if(res.err_msg=="get_brand_wcpay_request:ok"){
+						document.getElementById("payDom").style.display="none";
+						document.getElementById("successDom").style.display="";
+						window.location.href ="{$redirect_url}";							
+					}else{
+						if(res.err_msg == "get_brand_wcpay_request:cancel"){
+							var err_msg = "您取消了支付";
+						}else if(res.err_msg == "get_brand_wcpay_request:fail"){
+							var err_msg = "支付失败<br/>错误信息："+res.err_desc;
+						}else{
+							var err_msg = res.err_msg +"<br/>"+res.err_desc;
+						}
+							document.getElementById("payDom").style.display="none";
+							document.getElementById("failDom").style.display="";
+							document.getElementById("failRt").innerHTML=err_msg;
+						}
+					}
+					);
+				}
+</script>
+<style>
+		.pay_detail .panel{
+			margin-bottom: 0px;
+			padding-bottom: 0px;
+			border:0px solid black;
+			-webkit-box-shadow:0 0 10px #DDD;  
+			box-shadow:0 0 10px #DDD;
+		}
+</style>
+	
+<div class="container">
+		<div class="row pay_detail">
+			<div class="col-xs-12">		
+			<div id="payDom" class="cardexplain">
+				<div class="panel panel-default">
+					  <div class="panel-heading text-center" style="background-color: rgb(75,75,75);border-color: rgb(75,75,75);color:#fff;">
+					    <h5 class="panel-title ">
+						    支付金额
+						</h5>
+					  </div>
+					  <div class="panel-body text-center" style="background-color:color:#FC0057;">
+						  <h1>{$price}元</h1>
+					  </div>
+					  <button id="wechatpay" onclick="callpay()" class="btn btn-success btn-block" style="position:relative;bottom:-1px;	background-color: #56D444;
+	border-color: #56D444;">微信支付</button>
+				</div>
+			</div>
+			
+			<div id="failDom" style="display:none" class="cardexplain">
+				<div class="panel panel-default">
+					  <div class="panel-heading text-center" style="background-color: #FC0057;border-color: #FC0057;color:#fff;">
+					    <h5 class="panel-title ">
+						    支付结果
+						</h5>
+					  </div>
+					  <div class="panel-body text-center" style="color:#FC0057;">
+						  <tr>
+							<th>支付失败</th>
+							<td><div id="failRt"></div></td>
+						</tr>
+					  </div>
+					  <button onclick="callpay()" class="btn btn-warning btn-block" style="position:relative;bottom:-1px;	background-color: #56D444;
+	border-color: #56D444;">重新支付</button>
+				</div>
+			</div>
+
+			<div id="successDom" style="display:none" class="cardexplain">
+				<div class="panel panel-default">
+					  <div class="panel-heading text-center" style="background-color: #FC0057;border-color: #FC0057;color:#fff;">
+					    <h5 class="panel-title ">
+						    支付成功
+						</h5>
+					  </div>
+					  <div class="panel-body text-center" style="color:#FC0057;">
+						<tr>
+							<td>您已支付成功，页面正在跳转...</td>
+						</tr>
+					  </div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>	

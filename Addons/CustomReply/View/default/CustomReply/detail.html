@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title><php>echo empty($page_title) ? C('WEB_SITE_TITLE') : $page_title;</php></title>
+	<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+    <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+    <meta content="no-cache" http-equiv="pragma">
+    <meta content="0" http-equiv="expires">
+    <meta content="telephone=no, address=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" type="text/css" href="__CSS__/font-awesome.css?v={:SITE_VERSION}" media="all">
+	<link rel="stylesheet" type="text/css" href="__CSS__/mobile_module.css?v={:SITE_VERSION}" media="all">
+    <script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="__JS__/prefixfree.min.js"></script>
+    <script type="text/javascript" src="__JS__/m/dialog.js?v={:SITE_VERSION}"></script>
+    <script type="text/javascript" src="__JS__/m/flipsnap.min.js"></script>
+    <script type="text/javascript" src="__JS__/m/mobile_module.js?v={:SITE_VERSION}"></script>
+    <script type="text/javascript" src="__JS__/admin_common.js?v={:SITE_VERSION}"></script>
+    <link rel="shortcut icon" href="{:SITE_URL}/favicon.ico">
+	<link href="{:ADDON_PUBLIC_PATH}/detail.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+</head>
+<body id="weisite">
+<div class="container">
+	<header style="background:#2e393f; display:none">
+    	<img class="logo" height="40" src="__IMG__/logo.jpg"/>
+    </header>
+    <div class="detail top_line">
+    	<h6 class="title">{$info.title}</h6>
+        <p class="info"><span class="colorless">{$info.cTime|time_format}</span></p>
+        <section class="content">
+        		<!--
+                <notempty name="info.cover"><p><img src="{$info.cover|get_cover_url}"/></p></notempty>
+                -->
+                {$info.content|htmlspecialchars_decode}
+        </section>
+    </div>
+</div>
+<div class="bottom_nav_blank"/>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+	
+	wx.config({
+	    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+	    appId: '{$signPackage.appId}', // 必填，公众号的唯一标识
+	    timestamp: {$signPackage.timestamp}, // 必填，生成签名的时间戳
+	    nonceStr: '{$signPackage.nonceStr}', // 必填，生成签名的随机串
+	    signature: '{$signPackage.signature}',// 必填，签名，见附录1
+	    jsApiList: [
+	    	'onMenuShareTimeline'
+	    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+	});
+	
+	wx.ready(function(){
+		wx.onMenuShareTimeline({
+		    title: '{$info.title}', // 分享标题
+		    link: '{$signPackage.url}', // 分享链接
+		    imgUrl: "http://" + location.host + "__ROOT__{$info.cover|get_cover='path'}", // 分享图标
+		    success: function () { 
+		        // 用户确认分享后执行的回调函数
+		        //alert('分享成功');
+		    },
+		    cancel: function () { 
+		        // 用户取消分享后执行的回调函数
+		        //alert('取消分享');
+		    }
+		});
+	});
+	
+</script>
+</body>
+</html>

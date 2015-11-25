@@ -1,0 +1,48 @@
+<div class="scaleAttr" style="position: relative; z-index: 1000; overflow: hidden;">
+	<empty name="userInfo.headimgurl">
+		<img _src="{:ADDON_PUBLIC_PATH}/imgs/Default.png" style="width: 36.111111%; left: 32%; top: 16%;" />
+	<else />
+		<img class="no" src="{$userInfo.headimgurl}" style="width: 36.111111%; left: 32%; top: 16%; border-radius:50%" />
+	</empty>
+	<img _src="{:ADDON_PUBLIC_PATH}/imgs/AboutMe.png" style="width: 59.444444%; left: 20.277778%; top: 8.965517%;" />
+	<div class="word" style="position: absolute; width: 320px; left: 27.6%; top: 75.6%; color: #E58200; font-size: 54px; line-height: 54px; text-align: center; white-space:nowrap; overflow:hidden;" <empty name="userInfo.nickname"> onclick="window.location.href='http://mp.weixin.qq.com/s?__biz=MzA4ODc1MDMwMQ==&mid=201184917&idx=1&sn=173422068c56979c86e00cb7f785ed3d#rd';"</empty>>{$userInfo.nickname|default='点击关注'}</div>
+	<img _src="{:ADDON_PUBLIC_PATH}/imgs/Locate.png" style="width: 20.972222%; left: 65.7%; top: 53.3%;" />
+	<div class="word" style="position: absolute; width: 104px; left: 71.6%; top: 56.6%; color: #FFF; font-size: 24px; text-align: center; white-space:nowrap; overflow:hidden;">{$userInfo.city|default='法式旅馆'}</div>
+</div>
+<div style="position: relative; z-index: 900; overflow: hidden; line-height: 0;">
+	<img _src="{:ADDON_PUBLIC_PATH}/imgs/ExchangeInfo.png" style="position: relative; z-index: 100; width: 45.833333%; left: 27.083333%; top: 0;" />
+	<div class="scaleAttr" style="background-color: #FDF2ED; width: 86.888889%; padding: 10px; margin: 0 auto; border-radius: 10px; line-height: 22px; box-shadow: 0 0 20px 0 rgba(227, 153, 134, 1);">{$Scratch.end_tips}</div>
+</div>
+
+<!--
+<div class="scaleAttr" style="position: relative; z-index: 800;">
+	<img _src="{:ADDON_PUBLIC_PATH}/imgs/Where.png" style="width: 92.777778%; left: 3.6111111%; top: 0;" />
+	<div class="word" style="position: absolute; width: 500px; left: 12%; top: 32%; color: #E88C09; font-size: 28px; line-height: 36px;">
+		日期：12月14号~12月20号<br>
+		时间：17：00~20：00<br>
+		地点：合肥工业大学(翡翠湖校区)<br>北门东北50米<br>
+		电话：153-7546-0307
+	</div>
+	<a href="http://api.map.baidu.com/marker?location=31.782224,117.212874&title=诺言活动现场位置&content=诺言法式旅馆活动现场&output=html">
+		<img _src="{:ADDON_PUBLIC_PATH}/imgs/GPS.png" style="width: 15.833333%; left: 73%; top: 38%;" />
+	</a>
+</div>
+-->
+
+<volist name="my_prizes" id="vo" key="k">
+	<div class="scaleAttr" style="position: relative; z-index: 700; overflow: hidden; text-align: center;">
+		<img _src="{:ADDON_PUBLIC_PATH}/imgs/{$k}st.png" style="position: static; width: 100%;" />
+		<volist name="vo['prizes']" id="vo_next">
+			<div style="position: relative;">
+				<img _src="{:ADDON_PUBLIC_PATH}/imgs/SN.png" style="position: static; width: 86.111111%;" />
+				<div class="word" style="position: absolute; width: 358px; left: 22%; top: 28%; color: #FFF; font-size: 46px; line-height: 46px; text-align: center; white-space:nowrap; overflow:hidden; text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);">{$vo_next['sn']}</div>
+				<if condition="$vo_next['is_use'] eq 0 ">
+					<img _src="{:ADDON_PUBLIC_PATH}/imgs/Exchanged.png" style="position: absolute; width: 15.555556%; left: 74%; top: 17.4%;" />
+					<img _src="{:ADDON_PUBLIC_PATH}/imgs/Exchange.png" style="position: absolute; width: 15.555556%; left: 74%; top: 17.4%;" id="batchAddCard" />
+				<else />
+					<img _src="{:ADDON_PUBLIC_PATH}/imgs/Exchanged.png" style="position: absolute; width: 15.555556%; left: 74%; top: 17.4%;" />
+				</if>
+			</div>
+		</volist>
+	</div>
+</volist>

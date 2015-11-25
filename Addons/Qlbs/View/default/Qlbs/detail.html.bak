@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>地图导航</title>
+
+    <!-- Bootstrap -->
+    <link href="__STATIC__/bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+		<h3 align="center" style="color:green;">{$info['title']}</h3>
+		<hr/>
+		<div class="row">
+		<div class="col-xs-4">详细地址</div>
+		<div class="col-xs-8">{$info['address']}</div>
+		</div>
+		<hr/>
+		<div class="row">
+		<div class="col-xs-4">服务电话</div>
+		<div class="col-xs-8"><span style="green;">{$info['tel']}</span></div>
+		</div>
+		<hr/>
+		<div class="row">
+		<div class="col-xs-4">距 离 我</div>
+		<div class="col-xs-8">{$info['distance']} 米</div>
+		</div>
+	<div/>
+	<hr/>
+	<div class="col-xs-12">
+		<a href="http://api.map.baidu.com/marker?location={$info['latitude']},{$info['longitude']}&title=诺言法式旅馆&name=诺言法式旅馆&content=诺言法式旅馆&output=html&src=weiphp">
+			<img class="img-responsive img-thumbnail" src="http://ny.xpaba.com/public/mapshow.jpg" />
+		</a>
+	</div>
+	<div class="col-xs-12" align="center">
+		<span style="color:green;">开始一键导航</span>
+	</div>
+  </body>
+</html>
+
+

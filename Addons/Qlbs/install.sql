@@ -1,0 +1,108 @@
+CREATE TABLE IF NOT EXISTS `wp_qlbs` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+`keyword`  varchar(50) NOT NULL  COMMENT '关键词',
+`num`  char(50) NOT NULL  DEFAULT 3 COMMENT '回复记录条数',
+`sortby`  varchar(50) NOT NULL  DEFAULT 'distance:1' COMMENT '排序字段',
+`radius`  int(10) NOT NULL  DEFAULT 5000 COMMENT '搜索附近半径',
+`token`  varchar(100) NOT NULL  COMMENT 'TOKEN',
+`geotable_id`  int(10) NOT NULL  COMMENT '百度LBS表ID',
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+INSERT INTO `wp_qlbs` (`id`,`token`,`geotable_id`,`radius`,`sortby`,`keyword`,`num`) VALUES ('1','gh_8b645e2e0db0','70048','5000000','distance:1','附近诺言','3');
+INSERT INTO `wp_model` (`name`,`title`,`extend`,`relation`,`need_pk`,`field_sort`,`field_group`,`attribute_list`,`template_list`,`template_add`,`template_edit`,`list_grid`,`list_row`,`search_key`,`search_list`,`create_time`,`update_time`,`status`,`engine_type`) VALUES ('qlbs','百度LBS配置','0','','1','{"1":["keyword","geotable_id","sortby","num","radius"]}','1:基础','','','','','keyword:关键词\r\ngeotable_id:百度LBS对应数据表\r\nradius:搜索半径\r\nsortby:排序方式\r\nnum:回复条数\r\nid:操作:[EDIT]|编辑,[DELETE]|删除','10','','','1403681541','1403832322','1','MyISAM');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('keyword','关键词','varchar(50) NOT NULL','string','','微信响应关键词','1','','0','1','1','1403682097','1403682097','','3','','regex','','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('num','回复记录条数','char(50) NOT NULL','select','3','','1','1:1\r\n2:2\r\n3:3\r\n4:4\r\n5:5','0','0','1','1403682360','1403682210','','3','','regex','','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('sortby','排序字段','varchar(50) NOT NULL','string','distance:1','搜索结果的排序字段，如“distance:1”表示按距离升序排序，具体字段需根据百度LBS检索中的配置结果来填写','1','','0','0','1','1403921250','1403682021','','3','','regex','','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('radius','搜索附近半径','int(10) NOT NULL','num','5000','单位：米','1','','0','0','1','1403753938','1403681781','','3','','regex','','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('token','TOKEN','varchar(100) NOT NULL','string','','','4','','0','1','1','1403684288','1403681602','','3','','regex','','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('geotable_id','百度LBS表ID','int(10) NOT NULL','num','','对应百度lbs中的表id','1','','0','1','1','1403681685','1403681651','','3','','regex','','3','function');
+UPDATE `wp_attribute` SET model_id= (SELECT MAX(id) FROM `wp_model`) WHERE model_id=0;
+
+CREATE TABLE IF NOT EXISTS `wp_qlbs_user` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+`request_times`  int(10) NOT NULL  DEFAULT 1 COMMENT '请求次数',
+`latitude`  float(10) NOT NULL  DEFAULT 0 COMMENT '纬度',
+`longitude`  float(10) NOT NULL  DEFAULT 0 COMMENT '经度',
+`token`  varchar(100) NOT NULL  COMMENT 'TOKEN',
+`createtime`  int(10) NOT NULL  COMMENT '最新跟新时间',
+`openid`  varchar(255) NOT NULL  COMMENT 'OPENID',
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('1','o3ZYauOnS_g-qQ9bYISisG2MLfvE','gh_8b645e2e0db0','1417931359','117.296','31.8406','3584');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('2','o3ZYauC5aESNl1pvNKVc2qRnshRg','gh_8b645e2e0db0','1413617829','117.297','31.8395','619');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('3','o3ZYauHqbjXLCfifsD74mra3tLxg','gh_8b645e2e0db0','1414672282','117.204','31.7812','70');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('4','o3ZYauLvFpMp_stFuRrdkcNhbUHg','gh_8b645e2e0db0','1415426585','117.265','31.8813','22');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('5','o3ZYauIZwzlVoMJtW-s0G_eHV38s','gh_8b645e2e0db0','1415280527','114.261','30.5936','9');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('6','o3ZYauCoXeTSuHJvKadQQyAwUOcU','gh_8b645e2e0db0','1407506415','91.0822','29.652','6');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('7','o3ZYauPo6_BBLbZSKr2DCMH2j4RE','gh_8b645e2e0db0','1408939354','106.438','29.5159','70');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('8','o3ZYauNRJtBKWFFG-b_i56jsF6Sg','gh_8b645e2e0db0','1409007000','117.307','31.8415','20');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('9','o3ZYauOs3Kxyljn69i-G5g-YYrik','gh_8b645e2e0db0','1415588615','117.297','31.8401','182');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('10','o3ZYauLZL5TEeJAkGpsX3bX-FOpg','gh_8b645e2e0db0','1405681776','117.239','31.8231','8');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('11','o3ZYauGE8s0YysP_jNIqW0tg4zes','gh_8b645e2e0db0','1405750321','116.772','32.5741','5');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('12','o3ZYauGfu9JmF_ptww7P8fxS7B_c','gh_8b645e2e0db0','1405319363','117.207','31.8132','4');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('13','o3ZYauCbfcdnCJIzrwD2fcszRCmU','gh_8b645e2e0db0','1406597437','117.193','31.8434','9');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('14','o3ZYauOtl5IjXFDbavYmckbJPRAs','gh_8b645e2e0db0','1405396299','116.782','32.5863','8');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('15','o3ZYauFvB2S2mAIFfP3N9QfftzTs','gh_8b645e2e0db0','1407545068','116.773','32.5818','15');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('16','o3ZYauE2H9W-zkzLgEXNEPuFYtCc','gh_8b645e2e0db0','1406301091','117.291','31.8449','4');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('17','o3ZYauLpQJD4CJP9MadaAeOgaNig','gh_8b645e2e0db0','1407515614','116.779','32.5741','5');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('18','o3ZYauLfDyhz30g7cQnPYRFKyR1E','gh_8b645e2e0db0','1405557957','116.779','32.5859','3');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('19','o3ZYauDbhElOs2DOOg0RITUEqTYQ','gh_8b645e2e0db0','1405561638','120.379','36.1006','7');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('20','o3ZYauI79glVVmOR6YXriNRI-4sA','gh_8b645e2e0db0','1407895966','101.666','36.9465','30');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('21','o3ZYauA6-n0UrJ53RIOJ4QBzrd3Y','gh_8b645e2e0db0','1408156178','116.783','32.5684','31');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('22','o3ZYauLoM9nJ3zvGjwUUMqqPxEJk','gh_8b645e2e0db0','1409224056','118.281','32.081','5');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('23','o3ZYauEhR7e_n9Z91eH_NDxOrt80','gh_8b645e2e0db0','1405823799','117.327','31.8565','1');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('24','o3ZYauDhci-u9iQcusxzi2R_PX2c','gh_8b645e2e0db0','1414739750','119.018','25.8721','11');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('25','o3ZYauLXuk3ZfZPsa9GUx7hM2q1o','gh_8b645e2e0db0','1406948790','116.786','32.3792','16');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('26','o3ZYauK6N6dj_gZ96QvzcOjERWi8','gh_8b645e2e0db0','1406332787','116.504','31.7562','3');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('27','o3ZYauPRJedyO80wgczhLxwU3Rio','gh_8b645e2e0db0','1406336482','105.924','29.365','1');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('28','o3ZYauJpdhJ4ITsR3cC0ZMF_F0Z8','gh_8b645e2e0db0','1406534752','116.787','32.5585','1');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('29','t','gh_8b645e2e0db0','1406628448','0','0','1');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('30','o3ZYauPGJXvYtvcqTjp7v6MuNpgA','gh_8b645e2e0db0','1408239775','126.701','45.7864','18');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('31','o3ZYauNlYlJPqSKzXy9HI7v9bUDw','gh_8b645e2e0db0','1414666122','117.875','33.4869','41');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('32','o3ZYauHnKJ25aev_s2J6QBj7WQkU','gh_8b645e2e0db0','1408173999','117.271','31.8623','20');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('33','o3ZYauEbnWOPmmGkDGSEAo8vycKQ','gh_8b645e2e0db0','1406905787','115.621','33.1493','5');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('34','o3ZYauMczbCtt9IxAdHDy1d6ZnWg','gh_8b645e2e0db0','1415292050','119.552','39.923','16');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('35','o3ZYauKvrXlzNfrejF3ZQ7T7yxV0','gh_8b645e2e0db0','1415279284','117.297','31.8401','50');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('36','o3ZYauNJ9VZbDSbWTgwqz9lgzHyw','gh_8b645e2e0db0','1412741994','116.848','32.5867','105');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('37','o3ZYauE0dMk9fXvlrBA5GaMvhdj0','gh_8b645e2e0db0','1415240852','114.362','30.5293','17');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('38','o3ZYauPfJItmoE3C_WkiYLkjS7Tk','gh_8b645e2e0db0','1407861085','116.779','32.586','5');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('39','o3ZYauPihWDYyEp47rQ04PAveI4g','gh_8b645e2e0db0','1415403057','116.099','28.3416','32');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('40','o3ZYauKQlQelTKq-feu_MmLq40Bk','gh_8b645e2e0db0','1415285182','116.784','32.5772','17');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('41','o3ZYauDIZiSt85xhhb73eX1YrWrM','gh_8b645e2e0db0','1408204672','120.672','27.7864','9');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('42','o3ZYauIhTB2kSmDLN3QXEGQv9U30','gh_8b645e2e0db0','1415280609','116.78','32.5784','6');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('43','o3ZYauBtRHWrJx4ZOfcgBUCBBJ1Y','gh_8b645e2e0db0','1408952797','116.78','32.5813','20');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('44','o3ZYauA8yLill_KOA_8-WFFKXs0M','gh_8b645e2e0db0','1408973643','120.195','30.1998','4');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('45','o3ZYauJMEfD-ZdryAD6HezJKN1Ys','gh_8b645e2e0db0','1415350793','117.27','31.8446','17');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('46','o3ZYauJ61ktyKra8g9ow9yUm_PUE','gh_8b645e2e0db0','1409297191','123.481','41.7854','8');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('47','o3ZYauGV60TGnUse2b9CghuqMvls','gh_8b645e2e0db0','1411191698','117.167','36.1791','4');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('48','o3ZYauFXeDiodkQG5rQZAITCIBlE','gh_8b645e2e0db0','1414753310','116.633','23.6765','3');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('49','o3ZYauMfJweAi8FiW99B-oh5gcNw','gh_8b645e2e0db0','1414141407','117.22','31.8421','7');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('50','o3ZYauIqU8It4JQpUNqBO3hw8C0Y','gh_8b645e2e0db0','1415284814','115.513','38.867','5');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('51','o3ZYauGLvWueFFS0QGUFo0DXdDmk','gh_8b645e2e0db0','1412181764','100.303','21.9655','10');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('52','o3ZYauCsuLyWK_C_hvwgubKRGhKk','gh_8b645e2e0db0','1413038546','117.295','31.8716','7');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('53','o3ZYauCSJpJ7r_j2iuGiJHZIVM1k','gh_8b645e2e0db0','1413108173','129.758','43.3146','11');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('54','o3ZYauHeB338Zs3L-kEpHSqTyx20','gh_8b645e2e0db0','1414666121','115.842','39.1888','15');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('55','o3ZYauF5FMS1KCXth72Z4TD3HbrE','gh_8b645e2e0db0','1413196647','120.496','27.537','1');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('56','o3ZYauOtWUb9ggPDFwVwDEvaFPoo','gh_8b645e2e0db0','1415322063','118.188','24.5144','17');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('57','o3ZYauHHqelmlApO4cEijQG49NFQ','gh_8b645e2e0db0','1415323348','117.208','31.8073','11');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('58','oZ81ct2RduzdvFq147lCwvv_JzUw','gh_af00e12c3d2e','1413530081','117.297','31.8401','1');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('59','o3ZYauN2T6vgWPZs6ZCsoLEGQRNo','gh_8b645e2e0db0','1414041868','116.779','32.5854','5');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('60','o3ZYauNF_XqxsWtnVM_aIybOwg7I','gh_8b645e2e0db0','1415280437','121.458','31.1592','16');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('61','o3ZYauFcSyFuMsyc0TXBz4PNWKD0','gh_8b645e2e0db0','1414583097','114.012','22.5475','8');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('62','o3ZYauLcAEwOFyl4DedXa6y7UtP4','gh_8b645e2e0db0','1415286510','117.296','31.8095','9');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('63','o3ZYauL1UUdKLtLsHJVPs0zoHBQM','gh_8b645e2e0db0','1414843808','116.779','32.586','2');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('64','o3ZYauE_phflr1rA_AxsDAon0x7w','gh_8b645e2e0db0','1415282705','118.766','32.0469','2');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('65','o3ZYauDzF0er9bDKi5E-195oB5Ps','gh_8b645e2e0db0','1415106847','116.779','32.5861','2');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('66','o3ZYauMg5qq35-zLlpBrPQxovP7k','gh_8b645e2e0db0','1415212014','113.338','23.147','2');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('67','o3ZYauNn3iRUiwq2y0S0QYeZxGVY','gh_8b645e2e0db0','1415279195','121.248','31.2277','1');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('68','o3ZYauNoZzShmH6osME7bFx1A1NM','gh_8b645e2e0db0','1415323731','118.001','36.8094','1');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('69','o3ZYauHj9uNeusGzqDPRbAhBU4Y8','gh_8b645e2e0db0','1415460516','100.612','36.2745','1');
+INSERT INTO `wp_qlbs_user` (`id`,`openid`,`token`,`createtime`,`longitude`,`latitude`,`request_times`) VALUES ('70','o3ZYauK_N70hqVADc5RZ44fB82J4','gh_8b645e2e0db0','1415629546','117.195','31.7752','18');
+INSERT INTO `wp_model` (`name`,`title`,`extend`,`relation`,`need_pk`,`field_sort`,`field_group`,`attribute_list`,`template_list`,`template_add`,`template_edit`,`list_grid`,`list_row`,`search_key`,`search_list`,`create_time`,`update_time`,`status`,`engine_type`) VALUES ('qlbs_user','用户地理位置信息','0','','1','{"1":["longitude","latitude","request_times"]}','1:基础','','','','','openid:Openid\r\ncreatetime|time_format:更新时间\r\nlongitude:经度\r\nlatitude:纬度\r\nrequest_times:请求次数','10','','','1403685536','1403767107','1','MyISAM');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('request_times','请求次数','int(10) NOT NULL','num','1','','1','','0','0','1','1403686172','1403686172','','3','','regex','','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('latitude','纬度','float(10) NOT NULL','num','0','','1','','0','0','1','1403686011','1403686011','','3','','regex','','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('longitude','经度','float(10) NOT NULL','num','0','','1','','0','0','1','1403686022','1403685976','','3','','regex','','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('token','TOKEN','varchar(100) NOT NULL','string','','','4','','0','1','1','1403685619','1403685619','','3','','regex','','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('createtime','最新跟新时间','int(10) NOT NULL','datetime','','','4','','0','1','1','1403685693','1403685693','','3','','regex','','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('openid','OPENID','varchar(255) NOT NULL','string','','','4','','0','1','1','1403685590','1403685590','','3','','regex','','3','function');
+UPDATE `wp_attribute` SET model_id= (SELECT MAX(id) FROM `wp_model`) WHERE model_id=0;

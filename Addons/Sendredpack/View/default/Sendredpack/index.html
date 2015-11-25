@@ -1,0 +1,30 @@
+<extend name="Addons://Sendredpack@Base/common"/>
+
+<block name="body">
+<div class="">
+	<form role="form" id="openRedpack_form" action="{:addons_url('Sendredpack://Sendredpack/sendRedpack')}" method="post" onsubmit="return false;">
+		<button id="openRedpack" type="submit" class="btn btn-danger" style="position:absolute;top:50%;margin-top:-20px;left:20px;right:20px;">领取红包</a>
+		<input type="hidden" name="id" id="id" value="{$redpack.id}" /><!--到店日期-->
+	</form>
+</div>
+</block>
+
+<block name="script">
+	<script>
+		$(function() {
+			$('#openRedpack').on('click', function() {
+				var url = $('#openRedpack_form').attr('action');
+				var id = $('#id').val();		
+				$.post(url, {'id': id}, function(data) {
+					if(data.status) {
+						alert(data.info);
+						window.location.href=data.url;
+					}else{
+						alert(data.info);
+						$("#openRedpack").attr({"disabled":"disabled"});
+					}
+				}, 'json');
+			});
+		});
+	</script>
+</block>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title><php>echo empty($page_title) ? C('WEB_SITE_TITLE') : $page_title;</php></title>
+	<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+    <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+    <meta content="no-cache" http-equiv="pragma">
+    <meta content="0" http-equiv="expires">
+    <meta content="telephone=no, address=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="shortcut icon" href="{:SITE_URL}/favicon.ico">
+    
+	<link href="{:ADDON_PUBLIC_PATH}/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<include file="./Addons/Scratch/View/default/Scratch/nav.html" />
+<div id="exchange" class="content" style="line-height: 24px;">
+<div class="container" style="background:#F0ABA2;">
+<div class="scaleAttr" style="position: relative; z-index: 1000; overflow: hidden;">
+	<empty name="userInfo.headimgurl">
+		<img _src="{:ADDON_PUBLIC_PATH}/imgs/Default.png" style="width: 36.111111%; left: 32%; top: 16%;" />
+	<else />
+		<img class="no" src="{$userInfo.headimgurl}" style="width: 36.111111%; left: 32%; top: 16%; border-radius:50%" />
+	</empty>
+	<img _src="{:ADDON_PUBLIC_PATH}/imgs/AboutMe.png" style="width: 59.444444%; left: 20.277778%; top: 8.965517%;" />
+	<div class="word" style="position: absolute; width: 320px; left: 27.6%; top: 75.6%; color: #E58200; font-size: 54px; line-height: 54px; text-align: center; white-space:nowrap; overflow:hidden;" <empty name="userInfo.nickname"> onclick="window.location.href='http://mp.weixin.qq.com/s?__biz=MzA4ODc1MDMwMQ==&mid=201184917&idx=1&sn=173422068c56979c86e00cb7f785ed3d#rd';"</empty>>{$userInfo.nickname|default='点击关注'}</div>
+	<img _src="{:ADDON_PUBLIC_PATH}/imgs/Locate.png" style="width: 20.972222%; left: 65.7%; top: 53.3%;" />
+	<div class="word" style="position: absolute; width: 104px; left: 71.6%; top: 56.6%; color: #FFF; font-size: 24px; text-align: center; white-space:nowrap; overflow:hidden;">{$userInfo.city|default='法式旅馆'}</div>
+</div>
+<div style="position: relative; z-index: 900; overflow: hidden; line-height: 0;">
+	<img _src="{:ADDON_PUBLIC_PATH}/imgs/ExchangeInfo.png" style="position: relative; z-index: 100; width: 45.833333%; left: 27.083333%; top: 0;" />
+	<div class="scaleAttr" style="background-color: #FDF2ED; width: 86.888889%; padding: 10px; margin: 0 auto; border-radius: 10px; line-height: 22px; box-shadow: 0 0 20px 0 rgba(227, 153, 134, 1);font-size:12px;">{$Scratch.use_tips}</div>
+</div>
+<volist name="my_prizes" id="vo" key="k">
+	<div class="" style="position: relative; z-index: 700; overflow: hidden; text-align: center;">
+		<img _src="{:ADDON_PUBLIC_PATH}/imgs/{$k}st.png" style="position: static; width: 100%;" />
+		<volist name="vo['prizes']" id="vo_next">
+			<div style="position: relative;">
+				<img _src="{:ADDON_PUBLIC_PATH}/imgs/SN.png" style="position: static; width: 86.111111%;" />
+				<div class="word" style="position: absolute; width: 358px; left: 22%; top: 28%; color: #FFF; font-size: 46px; line-height: 46px; text-align: center; white-space:nowrap; overflow:hidden; text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);">{$vo_next['sn']}</div>
+				<if condition="$vo_next['is_use'] eq 0 ">
+					<img _src="{:ADDON_PUBLIC_PATH}/imgs/Exchanged.png" style="position: absolute; width: 15.555556%; left: 74%; top: 17.4%;" />
+						<!--<a href="{:addons_url('Scratch://Scratch/getCard',array('card_id' => $vo_next['card_id'],'wechat_card_js'=>1))}">-->
+						<img _src="{:ADDON_PUBLIC_PATH}/imgs/Exchange.png" style="position: absolute; width: 15.555556%; left: 74%; top: 17.4%;" class="batchAddCard" card_id="{$vo_next['card_id']}" timestamp="{$vo_next['cardExtPackage']['timestamp']}" signature="{$vo_next['cardExtPackage']['signature']}"  sn_id="{$vo_next['id']}"/>
+						<!--</a>-->
+				<else />
+					<img _src="{:ADDON_PUBLIC_PATH}/imgs/Exchanged.png" style="position: absolute; width: 15.555556%; left: 74%; top: 17.4%;" />
+				</if>
+			</div>
+		</volist>
+	</div>
+</volist>
+</div>
+</div>
+<!--
+<div style="text-align:center;margin-bottom:10px;">
+	<a href="{:addons_url('Scratch://Scratch/show',array('id' => 1))}">
+		<img src="http://www.onesword.cn/Uploads/Picture/2014-12-09/5486cf8487c52.jpg" style="position: relative;width:96%;margin-bottom:5px;" />
+	</a>
+	<span style="color:#fd0058;font-size:16px;margin-top:10px;">【 继续参加抽奖活动 】</span>
+</div>
+-->
+<script src="__STATIC__/jquery-2.0.3.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+
+	function batchAddCard(obj){
+		var timestamp = $(obj).attr('timestamp');
+		var signature = $(obj).attr('signature');
+		var card_id = $(obj).attr('card_id');
+		var sn_id = $(obj).attr('sn_id');
+		wx.addCard({
+			cardList: [{
+				cardId: card_id,
+			    cardExt: '{\"code\":\"\",\"openid\":\"\",\"timestamp\":\"'+timestamp+'\",\"signature\":\"'+signature+'\"}'
+			}], // 需要添加的卡券列表
+			success: function (res) {
+				var cardList = res.cardList; // 添加的卡券列表信息
+				//alert(JSON.stringify(res));
+				$.ajax({
+					type: "GET",
+					url: "{:addons_url('Scratch://Sn/set_use')}",
+					data: {id:sn_id},
+					dataType: "json",
+					success: function(data){
+						if(data.status)
+							location.reload();						             		
+					}
+				});
+			}
+		});
+	}
+	
+	wx.config({
+	    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+	    appId: '{$signPackage.appId}', // 必填，公众号的唯一标识
+	    timestamp: {$signPackage.timestamp}, // 必填，生成签名的时间戳
+	    nonceStr: '{$signPackage.nonceStr}', // 必填，生成签名的随机串
+	    signature: '{$signPackage.signature}',// 必填，签名，见附录1
+	    jsApiList: [
+	    	'addCard'
+	    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+	});
+	
+	wx.ready(function(){
+		// 添加卡券
+        $('.batchAddCard').each(function() {
+	        this.addEventListener('click', function(e) {
+	        	batchAddCard(this);
+	        });
+        });
+	});
+	
+</script>
+<script>
+var divsAttrObj = {
+	'exchange': [
+		{'height': 580},
+		{'marginTop' : -40, 'marginBottom': 72, 'paddingTop': 50},
+		{'height': 376},
+		{'marginBottom': 50},
+		{'marginBottom': 50},
+		{'marginBottom': 72}
+	]
+}
+
+var loading = function(pageId) {
+	var $imgs = $('#' + pageId + ' img');
+	var count = $imgs.length;
+	$imgs.each(function() {
+		if($(this).hasClass('no')) {
+			--count;
+		} else {
+			if(!this.getAttribute('_src').length) {
+				--count;
+			} else {
+				this.src = this.getAttribute('_src') + '?v=2.0';
+				if(!this.complete){
+					this.addEventListener('load',function(){
+						--count;
+					});
+				} else {
+					--count;
+				}
+			}
+		}
+	});
+	var flag = false;
+	var loaded = function() {
+		if (flag) {
+			return;
+		}
+		flag = true;
+		$(window).resize();
+		$('#loading').hide();
+		$(window).scroll();
+	}
+	
+	var imgTimer = setInterval(function() {
+		if(count == 0) {
+			clearInterval(imgTimer);
+			loaded();
+		}
+	}, 500);
+	
+	var divsAttr = divsAttrObj[pageId];
+	
+	var $divs = $('#' + pageId + ' .scaleAttr');
+	var scale;
+	
+	$(window).resize(function() {
+		scale = $('.container').width() / 720;
+		var index = 0;
+		$divs.each(function() {
+			if (index >= divsAttr.length) {
+				return;
+			}
+			var currAttr = {};
+			for ( var attr in divsAttr[index]) {
+				currAttr[attr] = divsAttr[index][attr] * scale;
+			}
+			$(this).css(currAttr);
+			++index;
+		});
+		var $box = $($('#prompt .box')[0]);
+		var top = ($(window).height() - $box.height()) / 2;
+		$box.css('top', top);
+	});
+}
+$(window).resize(function() {
+	scale = $('.container').width() / 720;
+	var scaleCss = {'WebkitTransform': 'scale(' + scale + ')'};
+	$('.word').css(scaleCss);
+	$('.main-top').height($('#nav').height());
+});
+
+
+loading('exchange');
+$(window).resize();
+</script>
+</body>
+</html>

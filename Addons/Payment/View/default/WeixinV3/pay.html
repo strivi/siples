@@ -1,0 +1,130 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no" />
+		<!-- Bootstrap -->
+
+		<title>{:C('WEB_SITE_TITLE')}</title>
+<style>
+		body{
+			background:#DEDEDE;
+			font-size:10px;
+		}
+		.cardexplain{
+		}
+		.cardexplain .content{
+			margin-top:-140px;
+			padding-left: 150px;
+		}
+		.cardexplain .content .price{
+			font-size: 42px;
+		}
+		.cardexplain .content #failRt{
+			color:#ff2770;
+		}
+		.cardexplain .content .success{
+			color:#B4EA00;
+		}
+		.cardexplain .btn{
+			margin-left: 35%;
+			margin-top: 45px;
+			color:#FFF;
+			border-radius: 10px;
+			border: 0px solid black;
+			width:100px;
+			height:30px;
+		}
+		.btn-pay{
+			background: #63D6AC;
+		}
+		.btn-pay:hover{
+			background: #00C935;
+		}
+		.btn-repay{
+			background: #ff2770;
+		}
+		.btn-repay:hover{
+			background: #FF1200;
+		}
+	</style>
+		<script language="javascript">
+			function jsApiCall(){
+				WeixinJSBridge.invoke("getBrandWCPayRequest",{$jsApiParameters},function(res){	
+					WeixinJSBridge.log(res.err_msg);
+					if(res.err_msg=="get_brand_wcpay_request:ok"){
+						document.getElementById("payDom").style.display="none";
+						document.getElementById("successDom").style.display="";
+						window.location.href ="{$redirect_url}";							
+					}else{
+						if(res.err_msg == "get_brand_wcpay_request:cancel"){
+							var err_msg = "您取消了支付";
+						}else if(res.err_msg == "get_brand_wcpay_request:fail"){
+							var err_msg = "支付失败<br/>错误信息："+res.err_desc;
+						}else{
+							var err_msg = res.err_msg +"<br/>"+res.err_desc;
+						}
+							document.getElementById("payDom").style.display="none";
+							document.getElementById("failDom").style.display="";
+							document.getElementById("failRt").innerHTML=err_msg;
+						}
+					}
+					);
+				}
+		
+		function callpay()
+		{	
+			if (typeof WeixinJSBridge == "undefined"){
+			    if( document.addEventListener ){
+			        document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+			    }else if (document.attachEvent){
+			        document.attachEvent('WeixinJSBridgeReady', jsApiCall); 
+			        document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+			    }
+			}else{
+			    jsApiCall();
+			}
+		}
+		</script>
+	</head>	
+<body>
+	<div class="" style="margin-top: 30%;">
+		<div class="">
+			<div class="">
+				<img class="img-responsive center-block " src="{:ADDON_PUBLIC_PATH}/images/pay.png" style="width:100%;"/>
+			</div>
+		</div>
+	</div>
+	<div class="">
+		<div id="payDom" class=" cardexplain">
+			<div class="text-center content">
+				<span class="price">{$price}元</span>
+			</div>
+			<div class="col-xs-12">	 
+				<button id="wechatpay" onclick="callpay();" class="btn btn-pay" style="">微信支付</button>
+			</div>
+		</div>
+		
+		<div id="failDom" style="display:none" class=" cardexplain">
+			<div class=" text-center content">
+				<span class="price">{$price}元</span>
+				<br/>
+				<span id="failRt"></span>
+			</div>
+			<div class="">	 
+				<button id="wechatpay" onclick="callpay()" class="btn btn-repay">重新支付</button>
+			</div>
+		</div>
+		
+		<div id="successDom" style="display:none" class=" cardexplain">
+			<div class=" text-center content">
+				<p class="success">支付成功</p>
+				<p>页面正在跳转中...</p>
+			</div>
+		</div>
+
+	</div>	
+	</body>
+</html>

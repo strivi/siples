@@ -1,0 +1,48 @@
+html, body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+
+#main {
+	position: relative;
+	height: 100%;
+}
+
+#main .main-padding {
+	height: 100%;
+	padding-top: 35px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+#main .hotel-list {
+	padding: 10px;
+}
+
+#main .hotel-list .list-group {
+	margin-bottom: 0;
+}
+
+#main .hotel-list .list-group-item {
+	color: #666;
+}
+
+#main .book {
+	padding: 10px;
+}
+
+#main .room-list {
+	padding: 10px;
+}
+
+#main .room-list .list-group {
+	margin-bottom: 0;
+}
+
+#main .room-list .list-group-item {
+	color: #666;
+}

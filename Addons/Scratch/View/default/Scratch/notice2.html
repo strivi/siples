@@ -1,0 +1,68 @@
+<extend name="Base/common" />
+<block name="body">
+  <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+  <!-- 标签页导航 -->
+  <div class="span9 page_message">
+    <section id="contents">
+      <include file="Addons/_nav" />
+      <div class="tab-content"> 
+      <div class="data-table">
+        <div class="table-striped">
+        <php> $post_url || $post_url = U('notice2?target_id='.$data['id']);</php>
+ 
+		 <form id="form" action="{:$post_url}" method="post">
+		 	<table cellspacing="1">
+		    	<tbody>
+		            <thead>
+		              <tr>
+		               <th colspan="4">刮刮卡通知</th>
+					   </tr>
+		            </thead>
+					<tr>
+			            <td width="10%">刮刮卡名称：</td>
+			            <td width="40%">{$data.title}</td>
+			        
+			            <td width="10%">房号</td>
+			            <td width="40%">
+				            <input type="text" name="houseNum" value="None">
+			            </td>
+
+					</tr>
+					<tr>
+			            <td width="10%">开始时间：</td>
+			            <td width="40%">{$data.start_time|time_format=###}</td>
+			            <td width="10%">结束时间</td>
+			            <td width="40%">{$data.end_time|time_format=###}</td>
+					</tr>
+					<tr>
+			            <td width="10%">标题：</td>
+			            <td width="40%">
+				            <input type="text" name="firstContent" value="Title">
+			            </td>
+						<td width="10">内容：</td>
+			            <td width="40%" colspan="3">
+			            	<textarea name="content" cols=40 rows=4>请填写内容</textarea>
+						</td>
+					</tr>
+			        <tr>
+						<td width="10%">消息受众：</td>
+			            <td width="40%">
+				            <input type="radio" name="acceptType" value="1" checked>已参与  
+							<input type="radio" name="acceptType" value="2" >已参与但未分享
+							<!--<input type="radio" name="acceptType" value="3">绑定会员-->
+			            </td>
+			        </tr>
+				</tbody>
+		</table>
+		<br />
+		  <button class="btn submit-btn" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+		</form>
+ </div>
+</div>
+
+      </div>
+    </section>
+  </div>
+  
+  
+</block>

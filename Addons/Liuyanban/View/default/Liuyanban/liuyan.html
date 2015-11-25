@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>发布留言-留言板</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maxinum-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<style type="text/css">
+	body{padding-top:50px;}
+	* a{text-decoration: none !important;}
+	.navbar{background: #fff;color:#08a5e0 !important;font-size:20px;font-weight:700;line-height: 50px;}
+	.navbar-brand{color:#fff}</style>
+</head>
+<body>
+<!-- header begin -->
+<nav class="navbar navbar-fixed-top text-center">
+
+<a class="" href="{:U('index')}"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;看留言</a>
+</nav>
+<!-- fabu begin -->
+<div class="well">
+<form method="post">
+
+<div class="form-group">
+<!--<label for="name">别名（NickName）</label>-->
+<input class="form-control" type="text" id="name" name="name" placeholder="请输入您的姓名" value="{$userInfo.nickname}" />
+</div>
+<div class="form-group">
+<!--<label for="content">留言内容</label>-->
+<textarea id="content" name="content" class="form-control" placeholder="请输入您的留言内容" rows="8"></textarea>
+</div>
+<input class="form-control"  type="hidden" id="sex" name="sex" placeholder="请输入您的姓名" value="{$userInfo.sex}" />
+
+<!--
+<div class="form-group">
+<label for="name">选填</label>
+<input class="form-control" type="text" id="houseNum" name="houseNum" placeholder="请输入您的房间号" value="" />
+</div>
+-->
+<div class="text-right">
+<button class="btn btn-primary" type="submit" id="submit-btn">提交</button>
+</div></form>
+</div>
+
+ 		<script type="text/javascript">
+			$('#submit-btn').click(function(){
+					if($('#content').val()==''){
+					alert('请输入留言内容');
+					return false;}
+				})
+		</script>
+
+</body>
+</html>
